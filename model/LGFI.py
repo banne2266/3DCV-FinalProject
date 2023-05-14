@@ -59,6 +59,7 @@ class self_attention(nn.Module):
         B, N, C = x.shape
         qkv = self.qkv(x).reshape(B, N, 3, self.num_head, C // self.num_head)
         qkv = qkv.permute(2, 0, 3, 1, 4)
+        q, k, v = qkv[0], qkv[1], qkv[2]
 
         q = q.transpose(-2, -1)
         k = k.transpose(-2, -1)
@@ -117,8 +118,5 @@ class LGFI_Block(nn.Module):
 
         x = input + x
         return x
-
-
-
 
 
