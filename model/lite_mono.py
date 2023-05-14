@@ -69,7 +69,7 @@ class LiteMono(nn.Module):
         self.stage = nn.ModuleList()
         for i in range(3):
             stage_blocks = []
-            for j in self.depth:
+            for j in range(self.depth[i]):
                 if j < self.depth[i] - 1:
                     stage_blocks.append(CDC_Block(dim=self.dim[i], k=3, dilation=self.dilation[i][j]))
                 else:
