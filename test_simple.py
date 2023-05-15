@@ -14,7 +14,7 @@ from torchvision import transforms, datasets
 
 import networks
 from layers import disp_to_depth
-import cv2
+#import cv2
 import heapq
 from PIL import ImageFile
 ImageFile.LOAD_TRUNCATED_IMAGES = True
