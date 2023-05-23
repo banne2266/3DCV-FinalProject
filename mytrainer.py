@@ -18,7 +18,7 @@ import datasets
 import networks
 from linear_warmup_cosine_annealing_warm_restarts_weight_decay import ChainedScheduler
 
-from networks.model.lite_mono import LiteMono
+from networks.lite_mono import LiteMono
 # torch.backends.cudnn.benchmark = True
 
 

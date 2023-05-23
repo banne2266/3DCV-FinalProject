@@ -2,6 +2,8 @@
 __pycache__/
 *.py[cod]
 *$py.class
+kitti_data/*
+tmp/*
 
 # C extensions
 *.so

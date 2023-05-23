@@ -43,13 +43,13 @@ train_params:
   disparity_smoothness: 0.001 #1e-3
   no_ssim: False
 
-  batch_size: 1
+  batch_size: 4
   num_epochs: 50
   save_frequency: 1
   log_frequency: 250
 
 
-  num_workers: 12
+  num_workers: 2
   
 
   mypretrain: null #None
