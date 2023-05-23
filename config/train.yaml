@@ -1,0 +1,71 @@
+name: "lite-mono_reproduce"
+log_dir: "./tmp"
+no_cuda: False
+profile: True
+png: True 
+
+min_depth: 0.1
+max_depth: 100.0
+
+disable_automasking: False
+
+dataset:
+  name: "kitti"
+  data_path: "kitti_data"
+  height: 192
+  width: 640
+  split: "eigen_zhou"
+
+
+train_params:
+  frame_ids:
+    - 0
+    - -1
+    - 1
+
+  scales:
+    - 0
+    - 1
+    - 2
+
+  use_stereo: False
+
+  lr: #[0.0001, 5e-6, 31, 0.0001, 1e-5, 31]
+    - 0.0001 #Initial learning rate
+    - 0.000006 #5e-6 #minimum learning rate
+    - 31 #First cycle step size
+    - 0.0001
+    - 0.00001 #1e-5
+    - 31
+  
+  weight_decay: 0.01 #1e-2
+
+  disparity_smoothness: 0.001 #1e-3
+  no_ssim: False
+
+  batch_size: 4
+  num_epochs: 50
+  save_frequency: 1
+  log_frequency: 250
+
+
+  num_workers: 2
+  
+
+  mypretrain: null #None
+  load_weights_folder: null #None
+  models_to_load: #["encoder", "depth", "pose_encoder", "pose"]
+    - "depth"
+    - "pose_encoder"
+    - "pose"
+  
+
+ARCH:
+  model: "lite-mono"
+
+  drop_path: 0.2
+
+  pose_model_type: "separate_resnet" #Can not acess shared mode for pose net
+  num_layers: 18
+  weights_init: "pretrained"
+  pose_model_input: "pairs"

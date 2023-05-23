@@ -3,9 +3,9 @@ import torch
 from torch import nn
 from torch.nn import functional as F
 
-from model.CDC import CDC_Block
-from model.LGFI import LGFI_Block
-from model.DepthDecoder import depth_decoder
+from .CDC import CDC_Block
+from .LGFI import LGFI_Block
+from .DepthDecoder import depth_decoder
 
 
 class Conv_BA(nn.Module):
@@ -91,14 +91,14 @@ class LiteMono(nn.Module):
         stage1 = self.down_sample_layers[0](x)#stage-1
 
         #stage-2
-        stageN_pre = torch.concat([stage1, x_avg_pool_down[0]], dim=1) #concat
+        stageN_pre = torch.cat([stage1, x_avg_pool_down[0]], dim=1) #concat
         stageN_down = self.down_sample_layers[1](stageN_pre) #downsample
         stageN_final = self.stage[0](stageN_down) #CDC+LGFI
         final_features.append(stageN_final)
 
         #stage-3~4
         for cur_stage in range(2, 4):
-            stageN_pre = torch.concat([stageN_final, x_avg_pool_down[cur_stage-1], stageN_down], dim=1) #concat
+            stageN_pre = torch.cat([stageN_final, x_avg_pool_down[cur_stage-1], stageN_down], dim=1) #concat
             stageN_down = self.down_sample_layers[cur_stage](stageN_pre) #downsample
             stageN_final = self.stage[cur_stage-1](stageN_down) #CDC+LGFI
             final_features.append(stageN_final)
